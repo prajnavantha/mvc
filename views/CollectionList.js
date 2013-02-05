@@ -47,7 +47,8 @@ enyo.kind({
         didreset: "repeaterDidReset",
         didchange: "repeaterDidChange",
         // other
-        onSetupItem: "setupItem"
+        onSetupItem: "setupItem",
+        ontap: "rowTapped"
     },
 
     //*@protected
@@ -96,11 +97,11 @@ enyo.kind({
     //*@protected
     setupItem: function (sender, event) {
         var model = event.model;
-        if (true === event.selected && model) {
-            this.controller.select(model);
-        } else if (!event.selected && model) {
-            model.set("selected", false);
-        }
+        //if (true === event.selected && model) {
+        //    this.controller.select(model);
+        //} else if (!event.selected && model) {
+        //    model.set("selected", false);
+        //}
         if (model) this.childController.set("model", model);
     },
 
@@ -162,21 +163,38 @@ enyo.kind({
     },
     
     //*@protected
-    selectionChanged: function () {
-        if (this.selection) {
-            var idx = this.controller.indexOf(this.selection);
-            if (!this.getSelection().isSelected(idx)) {
-                this.select(idx);
-            }
-        } else {
-            var selection = this.getSelection();
-            for (var key in selection.selected) {
-                if (true === selection.selected[key]) {
-                    selection.clear();
-                    break;
-                }
+    rowTapped: function (sender, event) {
+        if (this.controller) {
+            if (!isNaN(event.index)) {
+                this.controller.select(event.index);
             }
         }
+    },
+    
+    //*@protected
+    selectionChanged: function () {
+        // single select support
+        var selection = this.selection;
+        var idx;
+        if (selection) {
+            idx = this.controller.indexOf(selection);
+            this.renderRow(idx);
+        }
+        
+        //if (this.selection) {
+        //    var idx = this.controller.indexOf(this.selection);
+        //    if (!this.getSelection().isSelected(idx)) {
+        //        this.select(idx);
+        //    }
+        //} else {
+        //    var selection = this.getSelection();
+        //    for (var key in selection.selected) {
+        //        if (true === selection.selected[key]) {
+        //            selection.clear();
+        //            break;
+        //        }
+        //    }
+        //}
     }
     
 });
