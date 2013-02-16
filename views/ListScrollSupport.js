@@ -1,4 +1,4 @@
-enyo.Mixin({
+enyo.kind({
     
     // ...........................
     // PUBLIC PROPERTIES
@@ -6,11 +6,30 @@ enyo.Mixin({
     //*@public
     name: "wip.ListScrollSupport",
     
+    //*@public
+    kind: "enyo.Mixin",
+    
+    // ...........................
+    // PROTECTED PROPERTIES
+    
+    // ...........................
+    // COMPUTED PROPERTIES
+    
+    //*@protected
+    elements: enyo.Computed(function () {
+        return enyo.filter((this.controls || []), function (control) {
+            return control instanceof this.child;
+        }, this);
+    }),
+    
+    // ...........................
+    // PUBLIC METHODS
+    
     // ...........................
     // PROTECTED METHODS
     
     //*@protected
-    initMixin: function () {
+    create: function () {
         this.initScroller();
     },
     
@@ -21,13 +40,9 @@ enyo.Mixin({
             kind = enyo.getPath(kind);
         }
         this.createChrome([{name: "scroller", classes: "enyo-fill", kind: kind}]);
-    },
+    }
     
-    //*@protected
-    elements: enyo.Computed(function () {
-        return enyo.filter((this.controls || []), function (control) {
-            return control instanceof this.child;
-        }, this);
-    })
-    
+    // ...........................
+    // OBSERVERS
+
 });

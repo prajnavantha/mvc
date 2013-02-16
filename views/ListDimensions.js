@@ -9,8 +9,8 @@
         with that kind and this logic has been separated for
         clarity purposes.
     */
-    enyo.Mixin({
-    
+    enyo.kind({
+
         // ...........................
         // PUBLIC PROPERTIES
         
@@ -18,19 +18,20 @@
         name: "enyo.ListDimensions",
         
         //*@public
-        /**
-            This is a dummy property.
-        */
-        dimensions: null,
+        kind: "enyo.Mixin",
         
+        //*@public
+        dimensions: null,
+
         // ...........................
         // PROTECTED PROPERTIES
         
+        //*@protected
         _dimensions: null,
-        
+
         // ...........................
         // COMPUTED PROPERTIES
-        
+
         //*@protected
         _d_visible: enyo.Computed(function () {
             var bounds = this.get("dimensions.bounds");
@@ -81,15 +82,15 @@
         _d_parent: enyo.Computed(function () {
             return this.parent || this;
         }),
-        
+
         // ...........................
         // PUBLIC METHODS
-        
+
         // ...........................
         // PROTECTED METHODS
-        
+
         //*@protected
-        initMixin: function () {
+        create: function () {
             this._init_dimensions();
         },
         
@@ -105,10 +106,10 @@
         _get_dimensions: function (path) {
             return this.get("_d_"+path.slice(path.indexOf(".")+1));
         }
-        
+
         // ...........................
         // OBSERVERS
-    
+
     });
 
 }());

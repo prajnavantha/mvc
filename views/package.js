@@ -1,6 +1,7 @@
 enyo.depends(
     "Repeater.js",
     "List.js",
-    "CollectionRepeater.js",
-    "CollectionList.js"
+    "ListDimensions.js",
+    "ListScrollSupport.js",
+    "List.less"
 );
