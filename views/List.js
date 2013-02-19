@@ -24,9 +24,7 @@ enyo.kind({
     // PROTECTED PROPERTIES
     
     //*@protected
-    mixins: [
-        "enyo.ListDimensions"
-    ],
+    mixins: ["enyo.ListDimensions"],
     
     //*@protected
     components: [{
